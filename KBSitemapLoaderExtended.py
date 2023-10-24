@@ -55,10 +55,18 @@ class KBSitemapLoaderExtended(SitemapLoader):
 
             title = list(findkeys(result, "page_title"))
             content = list(findkeys(result, "kbContentData"))  #KB content
+            language = list(findkeys(result, "langList"))
 
-            if content == []:
+            isJap = False
+            for item in language:
+                for j in item:
+                    if j["language"] == "ja" and j["selected"] == True:
+                        isJap = True
+                        break
+
+            if content == [] or isJap:
                 continue
-            
+
             #adding title in the metadata
             metadata = self.meta_function(els[i], result)
             metadata["title"] = title[0].strip()

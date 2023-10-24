@@ -64,9 +64,7 @@ class SitemapLoaderExtended(SitemapLoader):
             result = self._scrape(urls[i])
             result = result.find_all("section")[0]
             
-            title = result.find_all("div", {"class": "title"})[0]
-            # content = self.parsing_function(result).split("|")
-            # title = content[0]
+            title = result.find_all("h1", {"class": "title"})[0]
 
             metadata=self.meta_function(page_urls[i], result)
             metadata["title"] = title.get_text()
